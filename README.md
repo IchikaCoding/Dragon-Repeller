@@ -1,0 +1,10 @@
+# あなたへの期待を答える
+
+あなたはこのページを開いて期待を抱きましたか？
+
+安心してください。我々は常にあなたの期待を超えていきます。
+
+
+# Discord
+
+https://www.youtube.com/redirect?event=video_description&redir_token=QUFFLUhqbmJhOFZNc000V1pHcnotOEszbGNOUDRIc0hld3xBQ3Jtc0tuek82VHVYQXNxX1RHZ2FBWFdEM2p4TV8zajdPVU1HQUdqVUlpZjQzVXVtQndiMjFFRjc3amREU1F2WTlleDR1WEY4RXgtLVpkZU9yTk9vVVA5QmdUaFFDVUdBOXV5Q0JOWjR3Yy1MWGxKVkMwWlJvSQ&q=https%3A%2F%2Fdiscord.gg%2F6Z3CkGYf&v=7ncRtjFIlsA
