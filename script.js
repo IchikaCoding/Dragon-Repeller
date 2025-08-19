@@ -2,7 +2,7 @@
 let xp = 0;
 /** 体力値 */
 let health = 100;
-let gold = 50;
+let gold = 250;
 /** weaponsの配列に対応している↓ */
 let currentWeaponIndex = 0;
 let fighting;
