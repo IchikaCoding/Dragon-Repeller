@@ -3,10 +3,12 @@ let xp = 0;
 /** 体力値 */
 let health = 100;
 let gold = 50;
-/** weaponsの配列に対応している↓ */
+/** 持っている武器の総数-1。
+ * weapons配列の何番目の武器を持っているのかを示す↓ */
 let currentWeaponIndex = 0;
 let fighting;
 let monsterHealth;
+/** 所持している武器名 */
 let inventory = ["stick"];
 /** クエリーセレクターとはHTML内から最初に該当する要素や属性を取ってくるもの */
 const button1 = document.querySelector("#button1");
@@ -19,6 +21,7 @@ const goldText = document.querySelector("#goldText");
 const monsterStats = document.querySelector("#monsterStats");
 const monsterName = document.querySelector("#monsterName");
 const monsterHealthText = document.querySelector("#monsterHealth");
+/** お店が用意している武器一覧 */
 const weapons = [
   { name: "stick", power: 5 },
   {
@@ -113,6 +116,7 @@ function buyWeapon() {
   if (currentWeaponIndex < weapons.length - 1) {
     if (gold >= 30) {
       gold -= 30;
+      /** 武器を購入したら１個増える。つまりこの変数が武器の総数だとわかる。 */
       currentWeaponIndex++;
       goldText.innerText = gold;
       let newWeapon = weapons[currentWeaponIndex].name;
@@ -133,6 +137,7 @@ function sellWeapon() {
     gold += 15;
     goldText.innerText = gold;
     let currentWeapon = inventory.shift();
+    text.innerText = "You sold a " + currentWeapon + ".";
   }
 }
 
