@@ -37,6 +37,12 @@ const weapons = [
     power: 100,
   },
 ];
+const monsters = [
+  { name: "slime", level: 2, health: 15 },
+  { name: "fanged beast", level: 8, health: 60 },
+  { name: "dragon", level: 20, health: 300 },
+];
+
 /** locationsが関数に入った時、どのロケーションを入れたらいいの？ */
 /** locationsをまとめている。場所と表示内容を管理するもの！ */
 const locations = [
@@ -96,10 +102,6 @@ function goStore() {
 function goCave() {
   update(locations[2]);
 }
-/** --ドラゴンと戦う-- */
-function fightDragon() {
-  console.log("Fighting dragon.");
-}
 
 function buyHealth() {
   if (gold >= 10) {
@@ -147,3 +149,8 @@ function sellWeapon() {
 function fightSlime() {}
 
 function fightBeast() {}
+
+/** --ドラゴンと戦う-- */
+function fightDragon() {
+  console.log("Fighting dragon.");
+}
