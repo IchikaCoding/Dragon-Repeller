@@ -151,11 +151,15 @@ function fightSlime() {
   goFight();
 }
 
-function fightBeast() {}
+function fightBeast() {
+  fighting = 1;
+  goFight();
+}
 
 /** --ドラゴンと戦う-- */
 function fightDragon() {
-  console.log("Fighting dragon.");
+  fighting = 2;
+  goFight();
 }
 
 function goFight() {}
