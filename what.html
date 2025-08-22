@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>innerTextとtextContentクイズ</title>
+  </head>
+  <body>
+    <h2>Q1: innerTextの結果は？</h2>
+    <div id="q1">
+      こんにちは
+      <span style="display: none">世界(隠れている)</span>
+      <span>世界(見えている)</span>
+    </div>
+    <h2>Q2: textContentsの結果は？</h2>
+    <div id="q2">
+      こんにちは
+      <span style="display: none">世界(隠れている)</span>
+      <span>世界(見えている)</span>
+    </div>
+    <h2>Q3: innerHTMLの結果は？</h2>
+    <div id="q3">
+      こんにちは
+      <span style="display: none">世界(隠れている)</span>
+      <span>世界(見えている)</span>
+    </div>
+    <h2>Q4: outerHTMLの結果は？</h2>
+    <div id="q4">
+      こんにちは
+      <span style="display: none">世界(隠れている)</span>
+      <span>世界(見えている)</span>
+    </div>
+    <h3>答えはコンソールを見てね！（F12キーで開けます）</h3>
+    <script>
+      // Q1: innerText
+      const q1 = document.getElementById("q1");
+      console.log("Q1 innerText →");
+      console.log(q1.innerText);
+      // Q2:textContent;
+      const q2 = document.getElementById("q2");
+      console.log("Q2 textContent →");
+      console.log(q2.textContent);
+
+      const q3 = document.getElementById("q3");
+      console.log("Q3 innerHTML →");
+      console.log(q3.innerHTML);
+
+      const q4 = document.getElementById("q4");
+      console.log("Q4 outerHTML →");
+      console.log(q4.outerHTML);
+    </script>
+  </body>
+</html>
