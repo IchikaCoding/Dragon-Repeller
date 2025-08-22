@@ -6,7 +6,9 @@ let gold = 50;
 /** 持っている武器の総数-1。
  * weapons配列の何番目の武器を持っているのかを示す↓ */
 let currentWeaponIndex = 0;
+/** targetMonsterIndex */
 let fighting;
+/** これはHTMLと関係なし */
 let monsterHealth;
 /** 所持している武器名 */
 let inventory = ["stick"];
@@ -37,6 +39,9 @@ const weapons = [
     power: 100,
   },
 ];
+/**
+ * モンスターの配列(fightingがインデックスとなっている)
+ */
 const monsters = [
   { name: "slime", level: 2, health: 15 },
   { name: "fanged beast", level: 8, health: 60 },
@@ -171,7 +176,10 @@ function fightDragon() {
 function goFight() {
   update(locations[3]);
   monsterHealth = monsters[fighting].health;
-  monsterStats.style.display = "block";
+  monsterStats.style.display = "block"; // 普段出さないため？
+  /** Monster Name: ○○の○○にモンスターの名前を表示するためのもの */
+  monsterName.innerText = monsters[fighting].name;
+  monsterHealthText.innerText = monsterHealth; // 一応、変数を作ってHTMLの表示を更新している
 }
 
 function attack() {}
