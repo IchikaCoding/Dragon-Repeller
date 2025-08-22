@@ -182,6 +182,8 @@ function goFight() {
   monsterHealthText.innerText = monsterHealth; // 一応、変数を作ってHTMLの表示を更新している
 }
 
-function attack() {}
+function attack() {
+  text.innerText = "The " + monsters[fighting].name + " attacks.";
+}
 
 function dodge() {}
