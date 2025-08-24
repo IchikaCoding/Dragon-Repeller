@@ -93,7 +93,7 @@ const locations = [
     name: "lose",
     "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
     "button functions": [restart, restart, restart],
-    text: "You die. &#x2620;", //&#x2620は絵文字
+    text: "You die. &#x2620;", // &#x2620は絵文字
   },
 ];
 
@@ -211,7 +211,11 @@ function attack() {
   if (health <= 0) {
     lose();
   } else if (monsterHealth <= 0) {
-    defeatMonster();
+    if (fighting === 2) {
+      winGame();
+    } else {
+      defeatMonster();
+    }
   }
 }
 
