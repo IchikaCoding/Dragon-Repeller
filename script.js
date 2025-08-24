@@ -101,6 +101,7 @@ button3.onclick = fightDragon;
 /** 街に戻るとき（場所移動のとき）の処理 */
 // locationはパラメーター。外からデータを受け取るための受け口。
 function update(location) {
+  monsterStats.style.display = "none";
   button1.innerText = location["button text"][0];
   button1.onclick = location["button functions"][0];
   button2.innerText = location["button text"][1];
