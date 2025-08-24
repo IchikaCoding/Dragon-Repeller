@@ -1,4 +1,4 @@
-/** 経験値 */
+/** 経験値(experience point) */
 let xp = 0;
 /** 体力値 */
 let health = 100;
@@ -204,6 +204,7 @@ function dodge() {
 
 function defeatMonster() {
   gold += Math.floor(monsters[fighting].level * 6.7);
+  xp += monsters[fighting].level;
 }
 
 function lose() {}
