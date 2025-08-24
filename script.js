@@ -93,7 +93,7 @@ const locations = [
     name: "lose",
     "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
     "button functions": [restart, restart, restart],
-    text: "You die. &#x2620;",
+    text: "You die. &#x2620;", //&#x2620は絵文字
   },
 ];
 
