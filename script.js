@@ -246,3 +246,7 @@ function restart() {
   goldText.innerText = gold;
   goTown();
 }
+
+function winGame() {
+  update(locations[6]);
+}
