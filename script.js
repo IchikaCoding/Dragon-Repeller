@@ -1,7 +1,7 @@
 /** 経験値(experience point) */
 let xp = 0;
 /** 体力値 */
-let health = 100;
+let health = 1000000;
 let gold = 50;
 /** 持っている武器の総数-1。
  * weapons配列の何番目の武器を持っているのかを示す↓ */
@@ -199,6 +199,7 @@ function fightDragon() {
 function goFight() {
   update(locations[3]);
   monsterHealth = monsters[fighting].health;
+  console.log({ monsterHealth });
   monsterStats.style.display = "block"; // 普段出さないため？
   /** Monster Name: ○○の○○にモンスターの名前を表示するためのもの */
   monsterName.innerText = monsters[fighting].name;
@@ -209,11 +210,15 @@ function attack() {
   text.innerText = "The " + monsters[fighting].name + " attacks.";
   text.innerText +=
     " You attack it with your " + weapons[currentWeaponIndex].name + ".";
+  /** プレイヤーのhealthが減る式 */
   health -= getMonsterAttackValue(monsters[fighting].level);
+  console.log("{プレイヤーのhealth:}" + health);
+  /** モンスターのhealthが減る式(毎回6が引かれる計算) */
   monsterHealth -=
     weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1;
   healthText.innerText = health;
   monsterHealthText.innerText = monsterHealth;
+  console.log("{attackのmonsterHealth:}" + monsterHealth);
   if (health <= 0) {
     lose();
   } else if (monsterHealth <= 0) {
@@ -225,9 +230,18 @@ function attack() {
   }
 }
 
-/** モンスターを攻撃する値を取得する関数 */
+/**
+ * モンスターを攻撃する値を取得する関数
+ * @param {number} level
+ */
 function getMonsterAttackValue(level) {
-  const hit = level * 5 - Math.floor(Math.random() * xp);
+  let check = Math.floor(Math.random() * xp);
+  const hit = level * 5 - check;
+  console.log("{monsterレベル：}" + level);
+  console.log("{xp：}" + xp);
+  console.log("{Check：}" + check);
+  console.log("{hit：}" + hit);
+  return hit;
 }
 
 function dodge() {
