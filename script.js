@@ -213,9 +213,11 @@ function attack() {
   /** プレイヤーのhealthが減る式 */
   health -= getMonsterAttackValue(monsters[fighting].level);
   console.log("{プレイヤーのhealth:}" + health);
-  /** モンスターのhealthが減る式(毎回6が引かれる計算) */
-  monsterHealth -=
-    weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1;
+  if (isMonsterHit()) {
+    /** モンスターのhealthが減る式(毎回6が引かれる計算) */
+    monsterHealth -=
+      weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1;
+  }
   healthText.innerText = health;
   monsterHealthText.innerText = monsterHealth;
   console.log("{attackのmonsterHealth:}" + monsterHealth);
