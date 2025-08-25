@@ -241,7 +241,8 @@ function getMonsterAttackValue(level) {
   console.log("{xp：}" + xp);
   console.log("{Check：}" + check);
   console.log("{hit：}" + hit);
-  return hit;
+  /** hit＞０が真のときhit、偽のとき０ */
+  return hit > 0 ? hit : 0;
 }
 
 function dodge() {
