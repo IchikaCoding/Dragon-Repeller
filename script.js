@@ -218,6 +218,7 @@ function attack() {
     monsterHealth -=
       weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1;
   }
+
   healthText.innerText = health;
   monsterHealthText.innerText = monsterHealth;
   console.log("{attackのmonsterHealth:}" + monsterHealth);
@@ -243,7 +244,7 @@ function getMonsterAttackValue(level) {
   console.log("{xp：}" + xp);
   console.log("{Check：}" + check);
   console.log("{hit：}" + hit);
-  /** hit＞０が真のときhit、偽のとき０ */
+  /** hit > 0が真のときhit、偽のとき0 */
   return hit > 0 ? hit : 0;
 }
 
