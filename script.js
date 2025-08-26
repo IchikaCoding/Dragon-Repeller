@@ -233,6 +233,8 @@ function attack() {
       defeatMonster();
     }
   }
+  if (Math.random() <= 0.1) {
+  }
 }
 
 /**
