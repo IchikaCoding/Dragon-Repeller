@@ -250,10 +250,21 @@ function getMonsterAttackValue(level) {
   return hit > 0 ? hit : 0;
 }
 
-/** モンスターに攻撃があったときの処理 */
+/** プレイヤーの攻撃が当たるかどうかの判定の処理 */
 function isMonsterHit() {
-  return Math.random() > 0.2; // このコード何だ？
+  // ランダム値を作って命中率80％にしている
+  // もしくは体力が20未満なら100％命中とする
+  return Math.random() > 0.2 || health < 20;
 }
+
+/** シンプル版：モンスターに攻撃をするときの処理 */
+// if (health < 20) {
+//   return true;
+// } else if (Math.random() > 0.2) {
+//   return true;
+// } else {
+//   return false;
+// }
 
 function dodge() {
   text.innerText = "You dodge the attack from the " + monsters[fighting].name;
