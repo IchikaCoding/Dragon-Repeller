@@ -250,6 +250,11 @@ function getMonsterAttackValue(level) {
   return hit > 0 ? hit : 0;
 }
 
+/** モンスターに攻撃があったときの処理 */
+function isMonsterHit() {
+  return Math.random() > 0.2; // このコード何だ？
+}
+
 function dodge() {
   text.innerText = "You dodge the attack from the " + monsters[fighting].name;
 }
