@@ -212,7 +212,6 @@ function attack() {
     " You attack it with your " + weapons[currentWeaponIndex].name + ".";
   /** プレイヤーのhealthが減る式 */
   health -= getMonsterAttackValue(monsters[fighting].level);
-  console.log("{プレイヤーのhealth:}" + health);
   /** モンスターに攻撃があったときの処理 */
   if (isMonsterHit()) {
     /** モンスターのhealthが減る式(毎回6が引かれる計算) */
@@ -223,7 +222,6 @@ function attack() {
   }
   healthText.innerText = health;
   monsterHealthText.innerText = monsterHealth;
-  console.log("{attackのmonsterHealth:}" + monsterHealth);
   if (health <= 0) {
     lose();
   } else if (monsterHealth <= 0) {
@@ -235,16 +233,16 @@ function attack() {
   }
 
   /** 10%の確率で武器が壊れる */
-  if (Math.random() <= 0.1) {
+  if (Math.random() <= 0.1 && inventory.length !== 1) {
     text.innerText += " Your " + inventory.pop() + " breaks.";
     currentWeaponIndex--;
-    return; // 早期リターンだけ明示
   }
 
   /** (デバック用)100%の確率で武器が壊れる */
-  //   if (Math.random() <= 1) {
-  //     return (text.innerText += " Your " + inventory.pop() + " breaks.");
-  //   }
+  // if (Math.random() <= 1 && inventory.length !== 1) {
+  //   text.innerText += " Your " + inventory.pop() + " breaks.";
+  //   currentWeaponIndex--;
+  //   return; // 早期リターンだけ明示
   // }
 }
 
