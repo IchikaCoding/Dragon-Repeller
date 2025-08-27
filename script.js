@@ -308,3 +308,9 @@ function restart() {
 function winGame() {
   update(locations[6]);
 }
+/**
+ * 隠し機能
+ */
+function easterEgg() {
+  update(locations[7]);
+}
