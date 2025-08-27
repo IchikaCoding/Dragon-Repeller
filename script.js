@@ -233,16 +233,19 @@ function attack() {
       defeatMonster();
     }
   }
+
+  /** 10%の確率で武器が壊れる */
+  if (Math.random() <= 0.1) {
+    text.innerText += " Your " + inventory.pop() + " breaks.";
+    currentWeaponIndex--;
+    return; // 早期リターンだけ明示
+  }
+
   /** (デバック用)100%の確率で武器が壊れる */
   //   if (Math.random() <= 1) {
   //     return (text.innerText += " Your " + inventory.pop() + " breaks.");
   //   }
   // }
-
-  /** 10%の確率で武器が壊れる */
-  if (Math.random() <= 0.1) {
-    return (text.innerText += " Your " + inventory.pop() + " breaks.");
-  }
 }
 
 /**
