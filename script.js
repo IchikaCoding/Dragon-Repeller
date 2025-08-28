@@ -321,6 +321,10 @@ function easterEgg() {
   update(locations[7]);
 }
 
+/**
+ *
+ * @param {number} guess ユーザーが選んだ２か８の値が入る
+ */
 function pick(guess) {
   const numbers = [];
   /** numbers配列を10まで生成するループ */
@@ -335,6 +339,9 @@ function pick(guess) {
    */
   for (let i = 0; i < 10; i++) {
     text.innerText += numbers[i] + "\n";
+  }
+  /** ユーザーが選んだ値がnumbers配列に含まれているかどうかを確認する処理 */
+  if (numbers.includes(guess)) {
   }
 }
 
