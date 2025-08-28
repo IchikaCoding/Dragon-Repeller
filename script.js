@@ -324,7 +324,9 @@ function easterEgg() {
 function pick(guess) {
   const numbers = [];
   /** numbers配列を10まで生成するループ */
-  while (numbers.length < 10) {}
+  while (numbers.length < 10) {
+    numbers.push(Math.floor(Math.random() * 11));
+  }
 }
 
 function pickTwo() {
