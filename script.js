@@ -342,6 +342,9 @@ function pick(guess) {
   }
   /** ユーザーが選んだ値がnumbers配列に含まれているかどうかを確認する処理 */
   if (numbers.includes(guess)) {
+    text.innerText += "Right! You win 20 gold!";
+    gold += 20;
+    goldText.innerText = gold;
   }
 }
 
