@@ -323,6 +323,8 @@ function easterEgg() {
 
 function pick(guess) {
   const numbers = [];
+  /** numbers配列を10まで生成するループ */
+  while (numbers.length < 10) {}
 }
 
 function pickTwo() {
