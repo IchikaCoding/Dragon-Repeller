@@ -329,6 +329,8 @@ function pick(guess) {
   }
   /** ユーザーが選んだ数字を表示する処理 */
   text.innerText = "You picked " + guess + ". Here are the random numbers:\n";
+  /** forループ */
+  for (let i = 0; i < 10; i++) {}
 }
 
 function pickTwo() {
