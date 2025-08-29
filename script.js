@@ -1,7 +1,7 @@
 /** 経験値(experience point) */
 let xp = 0;
 /** 体力値 */
-let health = 1000000;
+let health = 100;
 let gold = 50;
 /** 持っている武器の総数-1。
  * weapons配列の何番目の武器を持っているのかを示す↓ */
