@@ -349,6 +349,12 @@ function pick(guess) {
     text.innerText += "Wrong! You lose 10 health!";
     health -= 10;
     healthText.innerText = health;
+    /** healthがマイナスになるのを防ぐ処理
+     * もしマイナスになりそうならlose関数を呼ぶ
+     */
+    if (health <= 0) {
+      lose();
+    }
   }
 }
 
