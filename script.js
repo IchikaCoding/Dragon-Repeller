@@ -5,9 +5,10 @@ let health = 100;
 let gold = 50;
 /** 持っている武器の総数-1。
  * weapons配列の何番目の武器を持っているのかを示す↓ */
-let currentWeaponIndex = 0;
 /** targetMonsterIndex */
-let fighting;
+let currentWeaponIndex = 0;
+/** 戦っているモンスターのID */
+let currentMonsterIndex;
 /** これはHTMLと関係なし */
 let monsterHealth;
 /** 所持している武器名 */
@@ -40,7 +41,7 @@ const weapons = [
   },
 ];
 /**
- * モンスターの配列(fightingがインデックスとなっている)
+ * モンスターの配列(currentMonsterIndexがインデックスとなっている)
  */
 const monsters = [
   { name: "slime", level: 2, health: 15 },
@@ -53,58 +54,54 @@ const monsters = [
 const locations = [
   {
     name: "town square",
-    "button text": ["Go to store", "Go to cave", "Fight dragon"],
-    "button functions": [goStore, goCave, fightDragon],
+    buttonText: ["Go to store", "Go to cave", "Fight dragon"],
+    buttonFuns: [goStore, goCave, fightDragon],
     text: 'You are in the town square. You see a sign that says "Store".',
   },
   {
     name: "store",
-    "button text": [
+    buttonText: [
       "Buy 10 health (10 gold)",
       "Buy weapon (30 gold)",
       "Go to town square",
     ],
-    "button functions": [buyHealth, buyWeapon, goTown],
+    buttonFuns: [buyHealth, buyWeapon, goTown],
     text: "You enter the store.",
   },
   {
     name: "cave",
-    "button text": ["Fight slime", "Fight fanged beast", "Go to town square"],
-    "button functions": [fightSlime, fightBeast, goTown],
+    buttonText: ["Fight slime", "Fight fanged beast", "Go to town square"],
+    buttonFuns: [fightSlime, fightBeast, goTown],
     text: "You enter the cave. You see some monsters.",
   },
   {
     name: "fight",
-    "button text": ["Attack", "Dodge", "Run"],
-    "button functions": [attack, dodge, goTown],
+    buttonText: ["Attack", "Dodge", "Run"],
+    buttonFuns: [attack, dodge, goTown],
     text: "You are fighting a monster.",
   },
   {
     name: "kill monster",
-    "button text": [
-      "Go to town square",
-      "Go to town square",
-      "Go to town square",
-    ],
-    "button functions": [goTown, goTown, easterEgg],
+    buttonText: ["Go to town square", "Go to town square", "Go to town square"],
+    buttonFuns: [goTown, goTown, easterEgg],
     text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.',
   },
   {
     name: "lose",
-    "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
-    "button functions": [restart, restart, restart],
+    buttonText: ["REPLAY?", "REPLAY?", "REPLAY?"],
+    buttonFuns: [restart, restart, restart],
     text: "You die. &#x2620;", // &#x2620は絵文字
   },
   {
     name: "win",
-    "button text": ["REPLAY?", "REPLAY?", "REPLAY?"],
-    "button functions": [restart, restart, restart],
+    buttonText: ["REPLAY?", "REPLAY?", "REPLAY?"],
+    buttonFuns: [restart, restart, restart],
     text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;",
   },
   {
     name: "easter egg",
-    "button text": ["2", "8", "Go to town square?"],
-    "button functions": [pickTwo, pickEight, goTown],
+    buttonText: ["2", "8", "Go to town square?"],
+    buttonFuns: [pickTwo, pickEight, goTown],
     text: "You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!",
   },
 ];
@@ -120,12 +117,12 @@ button3.onclick = fightDragon;
 // locationはパラメーター。外からデータを受け取るための受け口。
 function update(location) {
   monsterStats.style.display = "none";
-  button1.innerHTML = location["button text"][0];
-  button1.onclick = location["button functions"][0];
-  button2.innerHTML = location["button text"][1];
-  button2.onclick = location["button functions"][1];
-  button3.innerHTML = location["button text"][2];
-  button3.onclick = location["button functions"][2];
+  button1.innerHTML = location.buttonText[0];
+  button1.onclick = location.buttonFuns[0];
+  button2.innerHTML = location.buttonText[1];
+  button2.onclick = location.buttonFuns[1];
+  button3.innerHTML = location.buttonText[2];
+  button3.onclick = location.buttonFuns[2];
   text.innerHTML = location.text;
 }
 
@@ -187,37 +184,37 @@ function sellWeapon() {
 }
 
 function fightSlime() {
-  fighting = 0;
+  currentMonsterIndex = 0;
   goFight();
 }
 
 function fightBeast() {
-  fighting = 1;
+  currentMonsterIndex = 1;
   goFight();
 }
 
 /** --ドラゴンと戦う-- */
 function fightDragon() {
-  fighting = 2;
+  currentMonsterIndex = 2;
   goFight();
 }
 
 function goFight() {
   update(locations[3]);
-  monsterHealth = monsters[fighting].health;
+  monsterHealth = monsters[currentMonsterIndex].health;
   console.log({ monsterHealth });
   monsterStats.style.display = "block"; // 普段出さないため？
   /** Monster Name: ○○の○○にモンスターの名前を表示するためのもの */
-  monsterName.innerText = monsters[fighting].name;
+  monsterName.innerText = monsters[currentMonsterIndex].name;
   monsterHealthText.innerText = monsterHealth; // 一応、変数を作ってHTMLの表示を更新している
 }
 
 function attack() {
-  text.innerText = "The " + monsters[fighting].name + " attacks.";
+  text.innerText = "The " + monsters[currentMonsterIndex].name + " attacks.";
   text.innerText +=
     " You attack it with your " + weapons[currentWeaponIndex].name + ".";
   /** プレイヤーのhealthが減る式 */
-  health -= getMonsterAttackValue(monsters[fighting].level);
+  health -= getMonsterAttackValue(monsters[currentMonsterIndex].level);
   /** モンスターに攻撃があったときの処理 */
   if (isMonsterHit()) {
     /** モンスターのhealthが減る式(毎回6が引かれる計算) */
@@ -231,7 +228,7 @@ function attack() {
   if (health <= 0) {
     lose();
   } else if (monsterHealth <= 0) {
-    if (fighting === 2) {
+    if (currentMonsterIndex === 2) {
       winGame();
     } else {
       defeatMonster();
@@ -284,12 +281,13 @@ function isMonsterHit() {
 // }
 
 function dodge() {
-  text.innerText = "You dodge the attack from the " + monsters[fighting].name;
+  text.innerText =
+    "You dodge the attack from the " + monsters[currentMonsterIndex].name;
 }
 
 function defeatMonster() {
-  gold += Math.floor(monsters[fighting].level * 6.7);
-  xp += monsters[fighting].level;
+  gold += Math.floor(monsters[currentMonsterIndex].level * 6.7);
+  xp += monsters[currentMonsterIndex].level;
   goldText.innerText = gold;
   xpText.innerText = xp;
   update(locations[4]);
