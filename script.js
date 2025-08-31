@@ -49,9 +49,8 @@ const monsters = [
   { name: "dragon", level: 20, health: 300 },
 ];
 
-/** locationsが関数に入った時、どのロケーションを入れたらいいの？ */
-/** locationsをまとめている。場所と表示内容を管理するもの！ */
-const locations = [
+/** 場面とボタンとボタンのテキストをまとめている定数。*/
+const scenes = [
   {
     name: "town square",
     buttonText: ["Go to store", "Go to cave", "Fight dragon"],
@@ -114,30 +113,30 @@ button3.onclick = fightDragon;
 /** --- ここから関数 --- */
 
 /** 街に戻るとき（場所移動のとき）の処理 */
-// locationはパラメーター。外からデータを受け取るための受け口。
-function update(location) {
+// sceneはパラメーター。引数に渡されたデータを関数内で受け取って使うための名前。
+function update(scene) {
   monsterStats.style.display = "none";
-  button1.innerHTML = location.buttonText[0];
-  button1.onclick = location.buttonFuns[0];
-  button2.innerHTML = location.buttonText[1];
-  button2.onclick = location.buttonFuns[1];
-  button3.innerHTML = location.buttonText[2];
-  button3.onclick = location.buttonFuns[2];
-  text.innerHTML = location.text;
+  button1.innerHTML = scene.buttonText[0];
+  button1.onclick = scene.buttonFuns[0];
+  button2.innerHTML = scene.buttonText[1];
+  button2.onclick = scene.buttonFuns[1];
+  button3.innerHTML = scene.buttonText[2];
+  button3.onclick = scene.buttonFuns[2];
+  text.innerHTML = scene.text;
 }
 
 function goTown() {
-  // locations[0]は引数。呼び出すときに実際に渡す値のこと。
-  update(locations[0]);
+  /** scenes[0]は実引数。呼び出すときに実際に渡す値のこと。 */
+  update(scenes[0]);
 }
 
 /** --ストアに行く-- */
 function goStore() {
-  update(locations[1]);
+  update(scenes[1]);
 }
 /** --洞窟に行く-- */
 function goCave() {
-  update(locations[2]);
+  update(scenes[2]);
 }
 
 function buyHealth() {
@@ -200,7 +199,7 @@ function fightDragon() {
 }
 
 function goFight() {
-  update(locations[3]);
+  update(scenes[3]);
   monsterHealth = monsters[currentMonsterIndex].health;
   console.log({ monsterHealth });
   monsterStats.style.display = "block"; // 普段出さないため？
@@ -290,11 +289,11 @@ function defeatMonster() {
   xp += monsters[currentMonsterIndex].level;
   goldText.innerText = gold;
   xpText.innerText = xp;
-  update(locations[4]);
+  update(scenes[4]);
 }
 
 function lose() {
-  update(locations[5]);
+  update(scenes[5]);
 }
 
 function restart() {
@@ -310,13 +309,13 @@ function restart() {
 }
 
 function winGame() {
-  update(locations[6]);
+  update(scenes[6]);
 }
 /**
  * 隠し機能
  */
 function easterEgg() {
-  update(locations[7]);
+  update(scenes[7]);
 }
 
 /**
