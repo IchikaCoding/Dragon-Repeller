@@ -3,16 +3,20 @@ let xp = 0;
 /** 体力値 */
 let health = 100;
 let gold = 50;
+// Todo 変数名を変更するか検討する
 /** 持っている武器の総数-1。
  * weapons配列の何番目の武器を持っているのかを示す↓ */
 /** targetMonsterIndex */
 let currentWeaponIndex = 0;
 /** 戦っているモンスターのID */
 let currentMonsterIndex;
+// Todo currentMonsterHealthに修正するか検討
 /** これはHTMLと関係なし */
 let monsterHealth;
 /** 所持している武器名 */
 let inventory = ["stick"];
+
+// todo textはmessageText, 数値系はValueに変更する
 /** クエリーセレクターとはHTML内から最初に該当する要素や属性を取ってくるもの */
 const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
@@ -21,25 +25,30 @@ const text = document.querySelector("#text");
 const xpText = document.querySelector("#xpText");
 const healthText = document.querySelector("#healthText");
 const goldText = document.querySelector("#goldText");
-const monsterStats = document.querySelector("#monsterStats");
-const monsterName = document.querySelector("#monsterName");
+
+const monsterStatsEl = document.querySelector("#monsterStats");
+const monsterNameEl = document.querySelector("#monsterName");
+// Todo monsterHealthValueElにするか迷う
 const monsterHealthText = document.querySelector("#monsterHealth");
+
+// Todo powerを他の箇所の言い回しに揃える
 /** お店が用意している武器一覧 */
 const weapons = [
-  { name: "stick", power: 5 },
+  { name: "stick", attackPower: 5 },
   {
     name: "dagger",
-    power: 30,
+    attackPower: 30,
   },
   {
     name: "claw hammer",
-    power: 50,
+    attackPower: 50,
   },
   {
     name: "sword",
-    power: 100,
+    attackPower: 100,
   },
 ];
+
 /**
  * モンスターの配列(currentMonsterIndexがインデックスとなっている)
  */
@@ -105,17 +114,18 @@ const scenes = [
   },
 ];
 
+// Todo ボタンDOM変数の意味が不明
+
 /** initialize buttons */
 button1.onclick = goStore;
 button2.onclick = goCave;
 button3.onclick = fightDragon;
 
 /** --- ここから関数 --- */
-
 /** 街に戻るとき（場所移動のとき）の処理 */
 // sceneはパラメーター。引数に渡されたデータを関数内で受け取って使うための名前。
 function update(scene) {
-  monsterStats.style.display = "none";
+  monsterStatsEl.style.display = "none";
   button1.innerHTML = scene.buttonText[0];
   button1.onclick = scene.buttonFuns[0];
   button2.innerHTML = scene.buttonText[1];
@@ -202,9 +212,9 @@ function goFight() {
   update(scenes[3]);
   monsterHealth = monsters[currentMonsterIndex].health;
   console.log({ monsterHealth });
-  monsterStats.style.display = "block"; // 普段出さないため？
+  monsterStatsEl.style.display = "block"; // 普段出さないため？
   /** Monster Name: ○○の○○にモンスターの名前を表示するためのもの */
-  monsterName.innerText = monsters[currentMonsterIndex].name;
+  monsterNameEl.innerText = monsters[currentMonsterIndex].name;
   monsterHealthText.innerText = monsterHealth; // 一応、変数を作ってHTMLの表示を更新している
 }
 
@@ -218,7 +228,9 @@ function attack() {
   if (isMonsterHit()) {
     /** モンスターのhealthが減る式(毎回6が引かれる計算) */
     monsterHealth -=
-      weapons[currentWeaponIndex].power + Math.floor(Math.random() * xp) + 1;
+      weapons[currentWeaponIndex].attackPower +
+      Math.floor(Math.random() * xp) +
+      1;
   } else {
     text.innerText += " You miss.";
   }
