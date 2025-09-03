@@ -22,30 +22,30 @@ const button1 = document.querySelector("#button1");
 const button2 = document.querySelector("#button2");
 const button3 = document.querySelector("#button3");
 const text = document.querySelector("#text");
-const xpText = document.querySelector("#xpText");
+const xpTextEl = document.querySelector("#xpText");
 const healthText = document.querySelector("#healthText");
 const goldText = document.querySelector("#goldText");
 
 const monsterStatsEl = document.querySelector("#monsterStats");
 const monsterNameEl = document.querySelector("#monsterName");
 // Todo monsterHealthValueElにするか迷う
-const monsterHealthText = document.querySelector("#monsterHealth");
+const monsterHealthEl = document.querySelector("#monsterHealth");
 
 // Todo powerを他の箇所の言い回しに揃える
 /** お店が用意している武器一覧 */
 const weapons = [
-  { name: "stick", attackPower: 5 },
+  { name: "stick", attackValue: 5 },
   {
     name: "dagger",
-    attackPower: 30,
+    attackValue: 30,
   },
   {
     name: "claw hammer",
-    attackPower: 50,
+    attackValue: 50,
   },
   {
     name: "sword",
-    attackPower: 100,
+    attackValue: 100,
   },
 ];
 
@@ -63,8 +63,8 @@ const scenes = [
   {
     name: "town square",
     buttonText: ["Go to store", "Go to cave", "Fight dragon"],
-    buttonFuns: [goStore, goCave, fightDragon],
-    text: 'You are in the town square. You see a sign that says "Store".',
+    buttonFns: [goStore, goCave, fightDragon],
+    message: 'You are in the town square. You see a sign that says "Store".',
   },
   {
     name: "store",
@@ -73,44 +73,46 @@ const scenes = [
       "Buy weapon (30 gold)",
       "Go to town square",
     ],
-    buttonFuns: [buyHealth, buyWeapon, goTown],
-    text: "You enter the store.",
+    buttonFns: [buyHealth, buyWeapon, goTown],
+    message: "You enter the store.",
   },
   {
     name: "cave",
     buttonText: ["Fight slime", "Fight fanged beast", "Go to town square"],
-    buttonFuns: [fightSlime, fightBeast, goTown],
-    text: "You enter the cave. You see some monsters.",
+    buttonFns: [fightSlime, fightBeast, goTown],
+    message: "You enter the cave. You see some monsters.",
   },
   {
     name: "fight",
     buttonText: ["Attack", "Dodge", "Run"],
-    buttonFuns: [attack, dodge, goTown],
-    text: "You are fighting a monster.",
+    buttonFns: [attack, dodge, goTown],
+    message: "You are fighting a monster.",
   },
   {
     name: "kill monster",
     buttonText: ["Go to town square", "Go to town square", "Go to town square"],
-    buttonFuns: [goTown, goTown, easterEgg],
-    text: 'The monster screams "Arg!" as it dies. You gain experience points and find gold.',
+    buttonFns: [goTown, goTown, easterEgg],
+    message:
+      'The monster screams "Arg!" as it dies. You gain experience points and find gold.',
   },
   {
     name: "lose",
     buttonText: ["REPLAY?", "REPLAY?", "REPLAY?"],
-    buttonFuns: [restart, restart, restart],
-    text: "You die. &#x2620;", // &#x2620は絵文字
+    buttonFns: [restart, restart, restart],
+    message: "You die. &#x2620;", // &#x2620は絵文字
   },
   {
     name: "win",
     buttonText: ["REPLAY?", "REPLAY?", "REPLAY?"],
-    buttonFuns: [restart, restart, restart],
-    text: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;",
+    buttonFns: [restart, restart, restart],
+    message: "You defeat the dragon! YOU WIN THE GAME! &#x1F389;",
   },
   {
     name: "easter egg",
     buttonText: ["2", "8", "Go to town square?"],
-    buttonFuns: [pickTwo, pickEight, goTown],
-    text: "You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!",
+    buttonFns: [pickTwo, pickEight, goTown],
+    message:
+      "You find a secret game. Pick a number above. Ten numbers will be randomly chosen between 0 and 10. If the number you choose matches one of the random numbers, you win!",
   },
 ];
 
@@ -127,12 +129,12 @@ button3.onclick = fightDragon;
 function update(scene) {
   monsterStatsEl.style.display = "none";
   button1.innerHTML = scene.buttonText[0];
-  button1.onclick = scene.buttonFuns[0];
+  button1.onclick = scene.buttonFns[0];
   button2.innerHTML = scene.buttonText[1];
-  button2.onclick = scene.buttonFuns[1];
+  button2.onclick = scene.buttonFns[1];
   button3.innerHTML = scene.buttonText[2];
-  button3.onclick = scene.buttonFuns[2];
-  text.innerHTML = scene.text;
+  button3.onclick = scene.buttonFns[2];
+  text.innerHTML = scene.message;
 }
 
 function goTown() {
@@ -215,7 +217,7 @@ function goFight() {
   monsterStatsEl.style.display = "block"; // 普段出さないため？
   /** Monster Name: ○○の○○にモンスターの名前を表示するためのもの */
   monsterNameEl.innerText = monsters[currentMonsterIndex].name;
-  monsterHealthText.innerText = monsterHealth; // 一応、変数を作ってHTMLの表示を更新している
+  monsterHealthEl.innerText = monsterHealth; // 一応、変数を作ってHTMLの表示を更新している
 }
 
 function attack() {
@@ -228,14 +230,14 @@ function attack() {
   if (isMonsterHit()) {
     /** モンスターのhealthが減る式(毎回6が引かれる計算) */
     monsterHealth -=
-      weapons[currentWeaponIndex].attackPower +
+      weapons[currentWeaponIndex].attackValue +
       Math.floor(Math.random() * xp) +
       1;
   } else {
     text.innerText += " You miss.";
   }
   healthText.innerText = health;
-  monsterHealthText.innerText = monsterHealth;
+  monsterHealthEl.innerText = monsterHealth;
   if (health <= 0) {
     lose();
   } else if (monsterHealth <= 0) {
@@ -300,7 +302,7 @@ function defeatMonster() {
   gold += Math.floor(monsters[currentMonsterIndex].level * 6.7);
   xp += monsters[currentMonsterIndex].level;
   goldText.innerText = gold;
-  xpText.innerText = xp;
+  xpTextEl.innerText = xp;
   update(scenes[4]);
 }
 
@@ -314,7 +316,7 @@ function restart() {
   gold = 50;
   currentWeaponIndex = 0;
   inventory = ["stick"];
-  xpText.innerText = xp;
+  xpTextEl.innerText = xp;
   healthText.innerText = health;
   goldText.innerText = gold;
   goTown();
